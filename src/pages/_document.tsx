@@ -14,7 +14,7 @@ class MyDocument extends Document {
 
     render() {
         return (
-            <Html className="bg-gradient-to-tr from-[#591a5a] to-[#2c8b8b]">
+            <Html className="bg-gradient-to-tr from-[#591a5a] to-[#2c8b8b] scrollbar-thin scrollbar-thumb-cyan-300 scrollbar-track-purple-300 scrollbar-thumb-rounded-lg">
                 <Head />
                 <body>
                     <Main />
