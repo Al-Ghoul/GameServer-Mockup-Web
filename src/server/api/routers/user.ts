@@ -1,22 +1,18 @@
 import { Prisma } from "@prisma/client";
 import { TRPCClientError } from "@trpc/client";
-import { z } from "zod";
 
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
 } from "~/server/api/trpc";
-import { UserInput } from "~/utils/UserTypes";
+import { UserRegistrationInput } from "~/utils/UserTypes";
 
 export const userRouter = createTRPCRouter({
   register: publicProcedure
-    .input(UserInput)
+    .input(UserRegistrationInput)
     .mutation(async ({ input, ctx }) => {
-      const { name, password, confirmPassword, email } = input;
-
-      if (password !== confirmPassword)
-        throw new TRPCClientError('[{\"message\": \"Passwords mismatch.\"}]');
+      const { name, password, email } = input;
 
       try {
         await ctx.prisma.user.create({
