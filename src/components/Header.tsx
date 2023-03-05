@@ -1,8 +1,11 @@
 import Image from "next/image";
-import { signIn } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react";
+
 import Link from "next/link";
 
 export const Header = () => {
+    const { data: sessionData } = useSession();
+
     return (
         <nav className="flex items-center justify-around py-3 sticky top-0 backdrop-blur-md backdrop-brightness-150">
             <a href="https://www.facebook.com/abdo.alghouul/">
@@ -22,7 +25,7 @@ export const Header = () => {
             <ul>
                 <li><Link href="/" className="text-white hover:underline hover:animate-pulse">Home</Link></li>
                 <li><Link href="/auth/register" className="text-white hover:underline hover:animate-pulse">Register</Link></li>
-                <button className="text-white hover:underline hover:animate-pulse" onClick={() => signIn()}>Log in</button>
+                <li><button className="text-white hover:underline hover:animate-pulse" onClick={sessionData ? () => void signOut() : () => void signIn()}>{sessionData ? "Log out" : "Log in"}</button></li>
             </ul>
 
         </nav>
