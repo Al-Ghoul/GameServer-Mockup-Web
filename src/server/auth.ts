@@ -8,7 +8,8 @@ import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
-
+import CredentialsProvider from "next-auth/providers/credentials"
+import { UserLoginInput, type UserLoginInputType } from "~/utils/UserTypes";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -44,6 +45,37 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
+    CredentialsProvider({
+      name: 'Credentials',
+
+      // @ts-ignore
+      async authorize(credentials: UserLoginInputType, req) {
+
+        const userCredentialsParseResult = UserLoginInput.safeParse(credentials);
+        if (!userCredentialsParseResult.success) {
+          const formattedErrorMessages = userCredentialsParseResult.error.format();
+
+          if (formattedErrorMessages.name) throw new Error(...formattedErrorMessages.name._errors);
+
+          if (formattedErrorMessages.email) throw new Error(...formattedErrorMessages.email._errors);
+
+          if (formattedErrorMessages.password) throw new Error(...formattedErrorMessages.password._errors);
+
+          throw new Error(...formattedErrorMessages._errors)
+        }
+
+        let user;
+        if (credentials.email !== "") {
+          user = await prisma.user.findFirst({ where: { email: credentials.email, password: credentials.password } });
+        } else {
+          user = await prisma.user.findFirst({ where: { name: credentials.name, password: credentials.password } });
+        }
+
+        if (user) return user;
+
+        throw new Error("User doesn't exist");
+      }
+    }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
