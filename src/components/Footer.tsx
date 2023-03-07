@@ -1,7 +1,7 @@
 export const Footer = () => {
     return (
         <footer className="flex flex-col px-5 py-5 backdrop-blur-md backdrop-brightness-150 text-white">
-            <p className="text-center mb-10 underline">Nothing to write here, so I'mma leave my socials ;)</p>
+            <p className="text-center mb-10 underline">Nothing to write here, so I&apos;mma leave my socials ;)</p>
             <ul className="flex justify-around">
                 <li>
                     <a href="https://discord.gg/nxA67CjQZY">
