@@ -18,8 +18,11 @@ export const Header = () => {
                     />
                     <p className="hidden group-hover:inline font-semibold text-white relative right-[4px]">By AlGhoul</p>
                 </div>
-            </a>
-            <h1 className="text-white">A mock-up that connects to a native c++ websocket server.</h1>
+            </Link>
+            <div className="flex flex-col gap-2">
+                <h1 className="text-white">A mock-up that connects to a native c++ websocket server.</h1>
+                {sessionData?.user.name && <h1 className="text-white self-center font-bold">Welcome {sessionData?.user.name}</h1>}
+            </div>
 
             <ul>
                 <li><Link href="/" className="text-white hover:underline hover:animate-pulse">Home</Link></li>
