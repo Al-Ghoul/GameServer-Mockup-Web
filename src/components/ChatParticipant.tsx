@@ -25,7 +25,7 @@ export const ChatParticipant = ({ name, image, online }: ChatParticipantDetails)
         ;
 }
 
-type ChatParticipantDetails =
+export type ChatParticipantDetails =
     {
         name: string,
         image: string,
