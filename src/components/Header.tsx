@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
-
 import Link from "next/link";
 
 export const Header = () => {
@@ -8,7 +7,7 @@ export const Header = () => {
 
     return (
         <nav className="flex items-center justify-around py-3 sticky top-0 backdrop-blur-md backdrop-brightness-150">
-            <a href="https://www.facebook.com/abdo.alghouul/">
+            <Link href="/">
                 <div className="group">
                     <Image
                         className="rounded-full mr-4 animate-pulse hover:animate-none"
