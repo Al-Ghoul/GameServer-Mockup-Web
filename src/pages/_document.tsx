@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
+import Document, { type DocumentContext, type DocumentInitialProps } from 'next/document'
 
 
 
